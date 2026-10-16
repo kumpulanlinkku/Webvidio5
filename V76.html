@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video</title>
+<style>
+  :root { --tg:#229ed9; --btn:#f2f3f5; --text:#111; --line:#e3e5e8; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Roboto,"Segoe UI",Arial,sans-serif; background:#fff; color:var(--text); display:flex; justify-content:center; }
+  .wrap { width:100%; max-width:480px; padding:24px 10px 60px; }
+  .btn { display:flex; align-items:center; justify-content:center; gap:14px; width:100%;
+    padding:18px; border-radius:14px; font-size:20px; font-weight:700; text-decoration:none;
+    margin-bottom:16px; text-transform:uppercase; text-align:center; transition:transform .1s,opacity .2s; }
+  .btn:active { transform:scale(.98); opacity:.9; }
+  .btn-tg { background:var(--tg); color:#fff; }
+  .btn-x { background:#ff8a00; color:#fff; padding:22px; box-shadow:0 4px 12px rgba(255,138,0,.3); }
+  .tg-icon { width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none; }
+  .tg-icon svg { width:20px; height:20px; fill:var(--tg); }
+  .btn-x .tg-icon svg { fill:#ff8a00; }
+  /* Telegram + tombol tambahan berdampingan, bentuk kotak */
+  #extra { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
+  #extra .btn { flex:1 1 calc(50% - 6px); width:auto; min-width:0; flex-direction:column; gap:8px; min-height:84px;
+    padding:14px 8px; margin-bottom:0; border-radius:14px; font-size:16px; line-height:1.25; overflow-wrap:anywhere; }
+
+  /* ===== VIDEO 9:16 ===== */
+  .video-box { position:relative; margin-top:0; margin-bottom:20px; width:100%; aspect-ratio:9/16; background:#000; border-radius:14px; overflow:hidden; }
+  .video-box iframe { width:100%; height:100%; border:0; display:block; }
+  .empty { color:#999; display:flex; height:100%; align-items:center; justify-content:center; text-align:center; padding:20px; font-size:14px; }
+  .cover { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:#000; cursor:pointer; border:0; width:100%; }
+  .play { width:104px; height:104px; border-radius:50%; background:#fff; border:6px solid #eee; display:flex; align-items:center; justify-content:center; }
+  .play::after { content:""; margin-left:8px; border-style:solid; border-width:20px 0 20px 34px; border-color:transparent transparent transparent #333; }
+  .gate { position:absolute; inset:0; background:rgba(0,0,0,.88); color:#fff; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:16px; padding:28px; text-align:center; z-index:5; }
+  .gate p { font-size:18px; line-height:1.5; }
+  .gate a, .gate button { width:100%; max-width:320px; padding:16px; border-radius:40px; font-size:17px; font-weight:700; text-decoration:none; border:0; text-align:center; }
+  .gate .g-link { background:var(--tg); color:#fff; }
+  .gate .g-go { background:#fff; color:#111; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="main"></div>
+  <div id="iklan-atas" style="display:flex;justify-content:center;min-height:50px;margin-bottom:12px">
+<script>
+  atOptions = {
+    'key' : 'a076784fd586a81e0aff53a86acf90a0',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://biomanos.org/22/a076784fd586a81e0aff53a86acf90a0"></script>
+</div>
+  <div id="extra"></div>
+  <div id="videos"></div>
+  <div id="iklan" style="margin-top:14px;text-align:center">
+<script async="async" data-cfasync="false" src="https://biomanos.org/21/3e3d59d4181cab5fac48c98e54c135e8"></script>
+<div id="container-3e3d59d4181cab5fac48c98e54c135e8"></div>
+</div>
+</div>
+
+<script id="cfg" type="application/json">
+{
+  "telegram": {
+    "name": "GRUP TELEGRAM",
+    "url": "https://t.me/addlist/WXhotSDEaN9mY2Jl"
+  },
+  "buttons": [
+    {
+      "name": "KUMPULAN LINK",
+      "url": "https://kumpulanlinkku.github.io/Klipku/V1"
+    }
+  ],
+  "videos": [
+    "https://mega.nz/file/fbZ2VDaR#xHgGcXGQh8t3nuzotnH-I2gvQ6Z71NuLC4hnjOFWAyk"
+  ],
+  "gate": {
+    "on": true,
+    "seconds": 55,
+    "message": "Klik link di bawah untuk lanjut nonton",
+    "btnName": "LANJUTKAN ▶",
+    "btnUrl": "https://vt.tokopedia.com/t/ZS9UUJdct2jBJ-rtKgD/"
+  }
+}
+</script>
+
+<script id="core">
+const PUBLIC = true; /* true = versi tonton saja, tanpa panel edit */
+const STORE = "affiliate_page_cfg_v2";
+const IS_ADMIN = !PUBLIC && (/[?&]admin(?:[=&]|$)/i.test(location.search) || !/^https?:$/i.test(location.protocol));
+const DEFAULT = JSON.parse(document.getElementById("cfg").textContent);
+
+function load() {
+  let c = JSON.parse(JSON.stringify(DEFAULT));
+  if (!PUBLIC) try {
+    const s = localStorage.getItem(STORE);
+    if (s) { const o = JSON.parse(s); c = Object.assign(c, o); c.gate = Object.assign({}, DEFAULT.gate, o.gate || {}); }
+  } catch(e) {}
+  c.telegram = Object.assign({}, DEFAULT.telegram, c.telegram || {});
+  if (!Array.isArray(c.buttons)) c.buttons = [];
+  if (!Array.isArray(c.videos)) c.videos = [""];
+  return c;
+}
+let cfg = load();
+
+const safeUrl = u => /^https?:\/\//i.test((u||"").trim()) ? u.trim() : "";
+
+function toMegaEmbed(url) {
+  url = (url||"").trim();
+  if (!safeUrl(url)) return "";
+  let m = url.match(/^https?:\/\/(?:www\.)?mega\.(?:nz|io)\/(?:file|embed)\/([\w-]+)#([\w-]+)$/i);
+  if (m) return "https://mega.nz/embed/" + m[1] + "#" + m[2];
+  m = url.match(/^https?:\/\/(?:www\.)?mega\.(?:nz|io)\/#!([\w-]+)!([\w-]+)$/i);
+  if (m) return "https://mega.nz/embed/" + m[1] + "#" + m[2];
+  return "";
+}
+
+const timers = [];
+
+/* ===== TAMPILAN ===== */
+function render() {
+  timers.forEach(clearTimeout); timers.length = 0;
+  const main = document.getElementById("main");
+  const vids = document.getElementById("videos");
+  const extra = document.getElementById("extra");
+  main.textContent = ""; vids.textContent = ""; extra.textContent = "";
+
+  const tg = document.createElement("a");
+  tg.className = "btn btn-tg"; tg.target = "_blank"; tg.rel = "noopener";
+  if (safeUrl(cfg.telegram.url)) tg.href = safeUrl(cfg.telegram.url);
+  tg.innerHTML = '<span class="tg-icon"><svg viewBox="0 0 24 24"><path d="M21.9 3.4 2.6 10.8c-1.3.5-1.3 1.3-.2 1.6l4.9 1.5 1.9 5.9c.2.6.4.8.9.8s.7-.2 1-.5l2.4-2.3 4.9 3.6c.9.5 1.5.2 1.8-.8L23.3 4.8c.3-1.3-.5-1.9-1.4-1.4zM8.5 13.3l9.9-6.2c.5-.3.9-.1.5.2l-8.2 7.4-.3 3.3-1.9-4.7z"/></svg></span>';
+  const t = document.createElement("span"); t.textContent = cfg.telegram.name || "TELEGRAM";
+  tg.appendChild(t); extra.appendChild(tg);
+
+  cfg.buttons.forEach(b => {
+    if (!b.name && !b.url) return;
+    const a = document.createElement("a");
+    a.className = "btn btn-x"; a.target = "_blank"; a.rel = "noopener";
+    if (safeUrl(b.url)) a.href = safeUrl(b.url);
+    const ic = document.createElement("span"); ic.className = "tg-icon";
+    ic.innerHTML = '<svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>';
+    const tx = document.createElement("span");
+    tx.textContent = (b.name || "LINK").replace(/^\s*📂\s*/u, "") || "LINK";
+    a.appendChild(ic); a.appendChild(tx);
+    extra.appendChild(a);
+  });
+
+  const list = cfg.videos.filter(v => v && v.trim());
+  if (!list.length && IS_ADMIN) list.push("");
+  list.forEach(v => vids.appendChild(buildVideo(v)));
+}
+
+function buildVideo(link) {
+  const box = document.createElement("div"); box.className = "video-box";
+  const e = toMegaEmbed(link);
+  if (!e) {
+    const em = document.createElement("div"); em.className = "empty";
+    em.textContent = (link || "").trim() ? "Link MEGA tidak valid" : "Belum ada video. Tempel link MEGA lewat tombol ⚙️";
+    box.appendChild(em);
+    return box;
+  }
+  const cover = document.createElement("button");
+  cover.className = "cover"; cover.setAttribute("aria-label", "Putar video");
+  cover.innerHTML = '<span class="play"></span>';
+  box.appendChild(cover);
+
+  cover.onclick = () => {
+    cover.remove();
+    const f = document.createElement("iframe");
+    f.src = e; f.allowFullscreen = false; f.setAttribute("allow", "autoplay");
+    box.appendChild(f);
+
+    const g = cfg.gate;
+    if (g && g.on) {
+      const secs = Math.max(1, parseInt(g.seconds, 10) || 60);
+      timers.push(setTimeout(() => showGate(box), secs * 1000));
+    }
+  };
+  return box;
+}
+
+function showGate(box) {
+  if (box.querySelector(".gate")) return;
+  const g = cfg.gate;
+  const o = document.createElement("div"); o.className = "gate";
+  const p = document.createElement("p"); p.textContent = g.message || "";
+  o.appendChild(p);
+  // 1 tombol saja: buka link + lanjut nonton
+  const url = safeUrl(g.btnUrl);
+  if (url) {
+    const a = document.createElement("a");
+    a.className = "g-link"; a.href = url; a.target = "_blank"; a.rel = "noopener";
+    a.textContent = g.btnName || "LANJUTKAN ▶";
+    a.onclick = () => setTimeout(() => o.remove(), 300);
+    o.appendChild(a);
+  } else {
+    const b = document.createElement("button");
+    b.className = "g-link"; b.textContent = g.btnName || "LANJUTKAN ▶";
+    b.onclick = () => o.remove();
+    o.appendChild(b);
+  }
+  box.appendChild(o);
+}
+
+render();
+</script>
+</body>
+</html>
